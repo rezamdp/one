@@ -1,0 +1,108 @@
+{% load static %}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4 rounded-left">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+        <img src="{% static 'dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3' %}"
+             style="opacity: .8">
+        <span class="brand-text font-weight-light">پنل مدیریت</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div>
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+
+                    {% if user.images_user.url != None %}
+                    <img src="{{ user.images_user.url }}"
+                         class="img-circle elevation-2" alt="User Image">
+                        {% else %}
+                        <img src="{% static 'dist/img/default-150x150.png' %}">
+                    {% endif %}
+
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">{{ user.get_full_name }}</a>
+                </div>
+            </div>
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                         with font-awesome or any other icon font library -->
+                    <li class="nav-item">
+                        <a href="{% url 'reportcourier:dashboard_home' %}"
+                           class="nav-link {% if request.resolver_match.url_name == 'dashboard_home' %}active {% endif %}">
+                            <i class="nav-icon fa fa-dashboard"></i>
+                            <p>
+                                خانه
+                            </p>
+                        </a>
+                    <li class="nav-item">
+                        <a href="{% url 'reportcourier:create_reportcourier' %}"
+                           class="nav-link {% if request.resolver_match.url_name == 'create_reportcourier' %} active {% endif %}">
+                            <i class="nav-icon fa fa-save"></i>
+                            <p>
+                                ثبت درخواست
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'account:update_user' request.user.id %}"
+                           class="nav-link {% if request.resolver_match.url_name == 'update_user' %} active {% endif %}">
+                            <i class="nav-icon fa fa-edit"></i>
+                            <p>
+                                ویرایش اطلاعات کاربری
+                            </p>
+                        </a>
+                    </li>
+                    <hr>
+
+                    <span class="badge-info p-2 rounded mb-2">دسترسی های ویژه ادمین</span>
+
+                    <li class="nav-item">
+                        <a href="{% url 'account:register_user' %}"
+                           class="nav-link {% if request.resolver_match.url_name == 'register_user' %} active {% endif %}">
+                            <i class="nav-icon fa fa-user-plus"></i>
+                            <p>
+                                ثبت کارمند <span class="badge-danger p-1 px-4 rounded mx-4">جدید</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a href="{% url 'account:list_user' %}"
+                           class="nav-link {% if request.resolver_match.url_name == 'list_user' %} active {% endif %}">
+                            <i class="nav-icon fa fa-list"></i>
+                            <p>
+                                لیست کارمندان
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'reportcourier:add_reasonback' %}"
+                           class="nav-link {% if request.resolver_match.url_name == 'add_reasonback' %} active {% endif %}">
+                            <i class="nav-icon fa fa-repeat"></i>
+                            <p>
+                                ثبت دلیل <span class="badge-danger p-1 px-4 rounded mx-4">جدید</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'reportcourier:add_courier' %}"
+                           class="nav-link {% if request.resolver_match.url_name == 'add_courier' %} active {% endif %}">
+                            <i class="nav-icon fa fa-plus-circle"></i>
+                            <p>
+                                ثبت راکب <span class="badge-danger p-1 px-4 rounded mx-4">جدید</span>
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+    </div>
+    <!-- /.sidebar -->
+</aside>

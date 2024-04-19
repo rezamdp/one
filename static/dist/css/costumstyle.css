@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'estedad';
+  src: url('../fonts/Estedad-Bold.woff2') format('woff2');
+url('../fonts/Estedad-Bold.ttf') format('ttf');
+}
+
+body {
+  font-size: 14px !important;
+}

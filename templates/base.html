@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'includes/head.html' %}
+</head>
+
+
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+            </li>
+        </ul>
+        <!-- Right navbar links -->
+        <ul class="navbar-nav mr-auto">
+            <!-- Messages Dropdown Menu -->
+            <li class="nav-item">
+                <form method="post" action="{% url 'account:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-outline-danger p-2 border-0 rounded">
+                        <i class="fa fa-sign-out"></i>
+                    </button>
+                </form>
+
+            </li>
+        </ul>
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- start sidebar -->
+    {% include 'includes/sidebar.html' %}
+    <!-- end sidebar -->
+
+    <div class="content-wrapper" style="min-height: 625.6px;">
+        <div class="content-header">
+
+            <div class="container-fluid">
+
+                {% block dash %}
+
+
+
+                {% endblock %}
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'includes/script.html' %}
+
+</body>
+</html>

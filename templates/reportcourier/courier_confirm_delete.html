@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block dash %}
+
+    <div class="card row d-inline-block w-50">
+
+        <div class="card-header">
+            <span>شما درحال حذف کردن راکب هستید</span>
+            <a href="{% url 'reportcourier:add_courier' %}">
+                <button class="bt btn-outline-warning rounded p-2 px-4 border-0 d-inline-block mr-5">لغو</button>
+            </a>
+        </div>
+        <div class="card-body">
+            <form method="post">{% csrf_token %}
+
+                <div class="mb-3">
+                    <span>آیا میخواهد راکب<span class="m-3 bg-primary-gradient p-2 px-3 rounded">{{ object }}</span> را حذف کنید</span>
+                </div>
+
+                <div>
+                    <input type="submit" value="حذف کردن" class="bt btn-danger rounded border-0 p-2 px-3">
+
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+{% endblock %}

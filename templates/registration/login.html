@@ -1,0 +1,59 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'includes/head.html' %}
+</head>
+<body>
+
+<body class="hold-transition login-page" style="font-family: Vazir;font-size: 14px">
+
+<div class="login-box">
+    <div class="login-logo">
+        <a href=""><b>ورود به سایت فروشگاه</b></a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">ورود به سامانه ثبت درخواست</p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    {{ form.username|add_class:"form-control"|attr:"placeholder:نام کاربری" }}
+                    <div class="input-group-append">
+                        <span class="fa fa-user input-group-text"></span>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    {{ form.password|add_class:"form-control"|attr:"placeholder:رمز عبور" }}
+                    <div class="input-group-append">
+                        <span class="fa fa-lock input-group-text"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- /.col -->
+
+                    <div class="col-12">
+                        <br>
+                        <button type="submit" class="btn btn-outline-success btn-block btn-flat rounded ">ورود</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-12">
+                    <br>
+                    <p class="mb-1 text-center">
+                        <a href="#" class="display-6">رمز عبورم را فراموش کرده ام.</a>
+                    </p>
+                </div>
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+
+    {% include 'includes/script.html' %}
+</body>
+</html>

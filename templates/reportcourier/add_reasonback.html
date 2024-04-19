@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block dash %}
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card bg-primary-gradient  shadow">
+                <div class="card-header">
+                    <h3 class="card-title" style="font-family: estedad ; font-size: 15px"> ثبت دلیل جدید </h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="col-sm-12">
+                                {{ form.title | as_crispy_field }}
+                            </div>
+                            <button type="submit" class="bt btn-success border-0 rounded py-1 px-2 mt-5 ">
+                                ثبت دلیل جدید
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card shadow rounded">
+                <!-- /.card-header -->
+            
+                <div class="card-body p-0 " style="{% if request.resolver_match.url_name == 'update_reasonback' %} display: none {% endif %}">
+                    <table class="table table-striped rounded">
+                        <tbody>
+                        <tr class="bg-primary-gradient  rounded">
+                            <th>عنوان دلیل</th>
+                            <th>عملیات</th>
+                        </tr>
+                        {% for reason in object_list %}
+                            <tr>
+                                <td>{{ reason }}</td>
+                                <td>
+{#                                    <a href="{% url 'reportcourier:delete_resonback' reason.id %}">#}
+{#                                        <button type="submit" class="bt btn-outline-danger border-0 rounded p-1 px-2">#}
+{#                                            <i class="fa fa-trash"></i>#}
+{#                                        </button>#}
+{#                                    </a>#}
+
+                                    <a href="{% url 'reportcourier:update_reasonback' reason.id %}">
+                                        <button type="submit" class="bt btn-outline-warning border-0 rounded p-1 px-2">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load jformat %}
+{% block dash %}
+
+    <div class="invoice p-3 mb-3" id="printer">
+        <!-- title row -->
+        <div class="row">
+            <div class="col-12">
+                <h4>
+                    <i class="fa fa-globe ml-2"></i>ماه رویان لیزر
+                    <small class="float-left">{{ report.create_report |jformat:"%H:%M -- %Y/%m/%d " }}</small>
+                </h4>
+            </div>
+            <!-- /.col -->
+            <table class="table table-striped ">
+                <thead>
+                <tr>
+                    <th>نام کارشناس</th>
+                    <th>مشتری</th>
+                    <th>راکب</th>
+                    <th>تعداد مقصد</th>
+                    <th>ادرس 1</th>
+                    {% if report.target2 != None %}
+                        <th>ادرس 2</th>
+                    {% endif %}
+                    <th>هزینه مقصد 1</th>
+                    {% if report.cost_courier2 != None %}
+                        <th>هزینه مقصد 2</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ report.user }}</td>
+                    <td>{{ report.name_customer }}</td>
+                    <td>{{ report.courier }}</td>
+                    <td>{{ report.target_number }}</td>
+                    <td>{{ report.target1 }}</td>
+                    {% if report.target2 != None %}
+                        <td>{{ report.target2 }}</td>
+                    {% endif %}
+                    {% if report.cost_courier1 %}
+                        <td>{{ report.cost_courier1 }}</td>
+                    {% else %}
+                        <td>0</td>
+                    {% endif %}
+                    {% if report.target2 != None %}
+                        <td>{{ report.cost_courier2 }}</td>
+                    {% endif %}
+                </tr>
+
+                </tbody>
+            </table>
+            <div class="card-body">
+                <div style="height: 100px">
+                    <span>توضیحات :</span>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th style="width:50%">مبلغ کل :</th>
+                        <td></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+    <!-- this row will not appear when printing -->
+    <div class="row no-print">
+        <div class="col-12">
+
+            <button type="button" class="btn btn-primary float-left ml-2" style="margin-right: 5px;"
+                    onclick="printOfpage('printer')">
+                <i class="fa fa-file-pdf-o ml-2"></i>pdf
+            </button>
+            
+            <button type="button" class="btn btn-primary float-left ml-2" style="margin-right: 5px;"
+                    onclick="printOfpage('printer')">
+                <i class="fa fa-print ml-2"></i>پرینت
+            </button>
+        </div>
+    </div>
+    </div>
+
+    <script type="text/javascript">
+        function printOfpage(el) {
+            var restorepage = document.body.innerHTML;
+            var printpage = document.getElementById(el).innerHTML;
+            document.body.innerHTML = printpage;
+            window.print();
+            document.body.innerHTML = restorepage;
+
+        }
+    </script>
+{% endblock %}

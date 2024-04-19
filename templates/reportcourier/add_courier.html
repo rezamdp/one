@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block dash %}
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card bg-primary-gradient shadow">
+                <div class="card-header">
+                    <h3 class="card-title " style="font-family: estedad ; font-size: 15px"> ثبت دلیل جدید </h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="col-sm-12">
+                                {{ form.first_name_courier | as_crispy_field }}
+                                {{ form.last_name_courier  | as_crispy_field }}
+                                {{ form.phone_number_courier |as_crispy_field }}
+                            </div>
+                            <button type="submit" class="bt btn-success  border-0 rounded py-1 px-2 mt-5 ">
+                                ثبت راکب جدید
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card shadow rounded"
+                 style="{% if request.resolver_match.url_name == 'update_courier' %} display: none {% endif %}">
+                <!-- /.card-header -->
+                <div class="card-body p-0 ">
+                    <table class="table table-striped rounded">
+                        <tbody>
+                        <tr class="bg-primary-gradient  rounded">
+                            <th>نام</th>
+                            <th>نام خانوادگی</th>
+                            <th>تلفن همراه</th>
+                            <th>عملیات</th>
+                        </tr>
+                        {% for courier in object_list %}
+                            <tr>
+                                <td>{{ courier.first_name_courier }}</td>
+                                <td>{{ courier.last_name_courier }}</td>
+                                <td>{{ courier.phone_number_courier }}</td>
+                                <td>
+                                    <a href="{% url 'reportcourier:delete_courier' courier.id %}">
+                                        <button type="submit" class="bt btn-outline-danger border-0 rounded p-1 px-2">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </a>
+                                    
+                                    <a href="{% url 'reportcourier:update_courier' courier.id %}">
+                                        <button type="submit" class="bt btn-outline-warning border-0 rounded p-1 px-2">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+{% endblock %}

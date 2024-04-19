@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load jformat %}
+
+{% block dash %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">جدول سفارشات</h3>
+
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="جستجو">
+
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover" style="font-family: Vazir ; font-size: 14px">
+                        <tbody>
+                        <tr>
+                            <th>نام</th>
+                            <th>نام خانوادگی</th>
+                            <th>نام کاربری</th>
+
+                            <th>تلفن همراه</th>
+                            <th>آخرین ورود</th>
+                            <th>وضعیت کارمند</th>
+                            <th>دسترسی به پنل ادمین</th>
+                            <th>تصویر</th>
+                            <th>عملیات</th>
+                        </tr>
+                        {% for item in object_list %}
+                            <tr>
+                                <td>{{ item.first_name }}</td>
+                                <td>{{ item.last_name }}</td>
+                                <td>{{ item.username }}</td>
+                                <td>{{ item.phone_number }}</td>
+                                <td>{{ item.last_login | jformat:"%H:%M  %Y-%M-%d" }}</td>
+                                <td>
+                                    {% if item.is_verified %}
+                                        <span class="badge badge-success">تایید شده</span>
+                                    {% else %}
+                                        <span class="badge badge-warning">تایید نشده</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if item.is_superuser %}
+                                        <span class="badge badge-success"><i class="fa fa-check-circle"></i></span>
+                                    {% else %}
+                                        <span class="badge badge-danger"><i class="fa fa-minus-circle"></i></span>
+                                    {% endif %}
+                                </td>
+                                <td style="width: 250px" , height="50px">
+                                    {% if item.images_user.url != None %}
+                                        <img src="{{ item.images_user.url }}" class="img-fluid w-50 rounded-circle">
+                                    {% else %}
+                                        <img src="{% static 'dist/img/default-150x150.png' %}">
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <button class="bt btn-outline-danger rounded border-0"><i class="fa fa-trash"></i>
+                                    </button>
+
+                                    <a href="{% url 'account:update_user' item.id %}">
+                                        <button type="submit" class="bt btn-outline-warning border-0 rounded p-1 px-2">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </a>
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+
+{% endblock %}
